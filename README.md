@@ -1,1 +1,1 @@
-# bright-scholarship-system
+# Bright Scholarship System
