@@ -1,0 +1,20 @@
+.navbar {
+    background-color: #EED7C5;
+}
+
+.navbar .MuiToolbar-root {
+    padding: 10px 20px;
+}
+
+.navbar .MuiTypography-root {
+    font-weight: bold;
+}
+
+.navbar .MuiButton-root {
+    margin: 0 10px;
+    text-transform: none;
+}
+
+.navbar .MuiButton-root:hover {
+    background-color: #e0b696;
+}
