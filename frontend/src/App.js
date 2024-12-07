@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import Navbar from './components/navbars/Navbar';
 import Login from './pages/login/login';
 import StudentHome from './pages/student/student-home';
+import Apply from './pages/apply/apply';
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login/>} />
           <Route path='/home' element={<StudentHome/>} />
+          <Route path='/apply' element={<Apply/>} />
         </Routes>
     </Router>
   );

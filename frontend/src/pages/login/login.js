@@ -3,8 +3,10 @@ import "./login.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from "../../components/button";
+import Stack from '@mui/material/Stack';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,7 +29,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h1 className="title">Bright Scholarship</h1>
+      <Stack alignItems="center" direction="row">
+        <EmojiObjectsOutlinedIcon sx={{ fontSize: 100, color: '#FDB61C'  }} />
+        <h1 className="title">Bright Scholarship</h1>
+      </Stack>
       <div className="login-box">
         <h2 className="welcome-text">Welcome back, Scholar!</h2>
         <p className="subtext">Please log in to enter your scholarship portal.</p>
@@ -64,7 +69,7 @@ const Login = () => {
 
             <Button
             label="Submit an application"
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/apply')}
             variant="accent"
             style={{ fontWeight: 800, fontSize: "24px" }}
             />
