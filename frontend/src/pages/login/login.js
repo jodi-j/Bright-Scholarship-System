@@ -60,7 +60,7 @@ const Login = () => {
           <Button
             type="submit"
             label="Sign in"
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/home/student')}
             variant="primary"
             style={{ fontWeight: 800, fontSize: "24px" }}
           />

@@ -1,0 +1,38 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+h2 {
+    margin: 0;
+    color: #9D6E49;
+}
+
+.cm-home-container {
+    display: flex;
+    justify-content: center;
+}
+
+.content-container {
+    display:flex;
+    flex-direction: column;
+    width: 900px;
+    justify-content: flex-start;
+    margin-bottom: 24px;
+}
+
+.criteria-container {
+    margin-bottom: 24px;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.confirm-winner-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}

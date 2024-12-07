@@ -221,7 +221,7 @@ const Apply = () => {
             <Button
                 type="submit"
                 label="Submit Application"
-                onClick={() => navigate('/home')}
+                onClick={() => navigate('/home/student')}
                 variant="primary"
                 style={{ fontWeight: 800, fontSize: "24px" }}
                 class="button-container"

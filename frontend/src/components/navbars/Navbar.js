@@ -27,7 +27,7 @@ const Navbar = () => {
           Bright Scholarship 
         </Typography>
         <Box>
-          <StyledButton color="inherit" component={Link} to="/home">
+          <StyledButton color="inherit" component={Link} to="/home/student">
             Home
           </StyledButton>
           <StyledButton color="inherit" component={Link} to="/">

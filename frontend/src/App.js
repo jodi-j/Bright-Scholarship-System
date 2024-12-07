@@ -5,11 +5,12 @@ import Navbar from './components/navbars/Navbar';
 import Login from './pages/login/login';
 import StudentHome from './pages/student/student-home';
 import Apply from './pages/apply/apply';
+import CommitteeMemberHome from './pages/committee-member/cm-home';
 
 function NavigationWrapper() {
   const location = useLocation();
 
-  const showNavbar = location.pathname === '/home';
+  const showNavbar = location.pathname === '/home/student' || '/home/cm';
 
   return (
     <div className="App">
@@ -24,8 +25,9 @@ function App() {
         <NavigationWrapper />
         <Routes>
           <Route path='/' element={<Login/>} />
-          <Route path='/home' element={<StudentHome/>} />
+          <Route path='/home/student' element={<StudentHome/>} />
           <Route path='/apply' element={<Apply/>} />
+          <Route path='/home/cm' element={<CommitteeMemberHome/>} />
         </Routes>
     </Router>
   );
