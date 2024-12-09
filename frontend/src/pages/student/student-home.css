@@ -21,10 +21,13 @@ body {
     border-radius: 15px;
     border: 5px solid #9D6E49;
     text-align: center;
-    color: #F8F1EB;
     padding: 12px;
     margin-top: 16px;
     margin-bottom: 4px;
+
+    h2 {
+        color: #F8F1EB;
+    }
 }
 
 .name-card {

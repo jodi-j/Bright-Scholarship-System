@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { colors } from '../../components/colors';
 import StudentCard from '../../components/student-card';
 import Button from '../../components/button';
 import './cm-home.css'
 
 const CommitteeMemberHome = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const [students] = useState([
         { id: 1, name: "John Doe", age: 20, grade: "A" },
