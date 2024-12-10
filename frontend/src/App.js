@@ -7,6 +7,7 @@ import StudentHome from './pages/student/student-home';
 import Apply from './pages/apply/apply';
 import CommitteeMemberHome from './pages/committee-member/cm-home';
 import Winner from './pages/admin/winner';
+import Users from './pages/admin/users';
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
           <Route path='/apply' element={<Apply/>} />
           <Route path='/home/cm' element={<CommitteeMemberHome/>} />
           <Route path='/admin/winner' element={<Winner />} />
+          <Route path='/admin/users' element={<Users />} />
         </Routes>
     </Router>
   );

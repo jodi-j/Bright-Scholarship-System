@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+}
+
+h1 {
+    margin-left: 60px;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
