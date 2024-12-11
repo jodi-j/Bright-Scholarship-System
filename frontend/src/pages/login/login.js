@@ -17,15 +17,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/api/auth/login', {username, password});
+      console.log('Sending request to backend:', { username, password });
+      const response = await axios.post('http://localhost:5001/api/auth/login', { username, password });
 
-      localStorage.setItem('session_id', response.data.session_id);
-      alert(response.data.message);
-    } catch(err){
+      console.log('Response from backend:', response.data);
+      
+      // Assuming the backend sends a success flag and a session token
+      if (response.status === 200) {
+        localStorage.setItem('session_id', response.data.session_id);
+        navigate('/home/student'); // Navigate only on successful login
+      } else {
+        alert(response.data.message || 'Invalid login credentials');
+      }
+    } catch (err) {
       console.error('Login error:', err);
-      alert("An error occurred"); 
+      alert('An error occurred while attempting to log in. Please try again later.');
     }
-  }
+  };
 
   return (
     <div className="login-container">
@@ -60,7 +68,6 @@ const Login = () => {
           <Button
             type="submit"
             label="Sign in"
-            onClick={() => navigate('/home/student')}
             variant="primary"
             style={{ fontWeight: 800, fontSize: "24px" }}
           />

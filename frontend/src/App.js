@@ -8,6 +8,7 @@ import Apply from './pages/apply/apply';
 import CommitteeMemberHome from './pages/committee-member/cm-home';
 import Winner from './pages/admin/winner';
 import Users from './pages/admin/users';
+import Register from './pages/registration/register';
 
 function NavigationWrapper() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
           <Route path='/home/cm' element={<CommitteeMemberHome/>} />
           <Route path='/admin/winner' element={<Winner />} />
           <Route path='/admin/users' element={<Users />} />
+          <Route path='/register' element={<Register />} />
         </Routes>
     </Router>
   );
