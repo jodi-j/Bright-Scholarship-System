@@ -1,13 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import Button from '../../components/button.js';
 import { colors } from '../../components/colors.js';
+import axios from 'axios';
 import './apply.css';
 
 const Apply = () => {
     const navigate = useNavigate();
+
+    // State variables for form fields
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [birthdate, setBirthday] = useState('');
+    const [gender, setGender] = useState('');
+    const [phone_number, setPhoneNumber] = useState('');
+    const [student_id, setStudentID] = useState('');
+    const [grade_status, setGradeStatus] = useState('');
+    const [current_credit_hours, setCreditHours] = useState('');
+    const [cumulative_GPA, setCumulativeGPA] = useState('');
+    const [current_GPA, setCurrentGPA] = useState('');
+    const [username, setUsername] = useState('');
+    const [email_address, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleApply = async (e) => {
+        e.preventDefault();
+    
+        // Ensure passwords match
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+    
+        try {
+            // Create an object with all the application data
+            const applicationData = {
+                student_id,
+                first_name,
+                last_name,
+                birthdate,
+                gender,
+                phone_number,
+                email_address,
+                grade_status,
+                cumulative_GPA,
+                current_GPA,
+                current_credit_hours,
+                username,
+                password,
+                status: "submitted",
+            };
+    
+            // Send POST request to backend to register and apply
+            const response = await axios.post('http://localhost:5001/api/auth/apply', applicationData);
+    
+            console.log('Response from backend:', response.data);
+            
+            // Check for userId and applicationId instead of success property
+            if (response.data.userId && response.data.applicationId) {
+                alert('Application submitted successfully!');
+                navigate('/home/student'); // Redirect to home/student page after successful application
+            } else { //fix this bc i think the field it's checking isn't correct
+                alert('There was an error submitting your application.');
+            }
+        } catch (err) {
+            // More detailed error logging
+            if (err.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error('Error response data:', err.response.data);
+                console.error('Error response status:', err.response.status);
+                
+                // Show specific error message from backend
+                alert(err.response.data.message || 'An error occurred while submitting your application.');
+            } else if (err.request) {
+                // The request was made but no response was received
+                console.error('No response received:', err.request);
+                alert('No response from server. Please check your network connection.');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Error setting up request:', err.message);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        }
+    };
 
     return (
         <div className="apply-container">
@@ -19,8 +98,8 @@ const Apply = () => {
                Your information will be verified with the Registrar’s Office and will be used to determine 
                if you are eligible for this scholarship. 
             </p>
-
-            <div className="form-container">
+        
+            <form onSubmit={handleApply} className="form-container">
                 <div className="application application-box left">
                     <h2 style={{ color:colors.mainBrown, marginTop: '0' }}>Enter Personal Information</h2>
                     
@@ -33,6 +112,7 @@ const Apply = () => {
                                 name="firstname" 
                                 className="half input-field" 
                                 placeholder="First Name"
+                                onChange={(e) => setFirstName(e.target.value)}
                                 required 
                             />
                         </div>
@@ -45,6 +125,7 @@ const Apply = () => {
                                 name="lastName" 
                                 className="input-field half" 
                                 placeholder="Last Name"
+                                onChange={(e) => setLastName(e.target.value)}
                                 required 
                             />
                         </div>
@@ -59,6 +140,7 @@ const Apply = () => {
                                 name="birthday" 
                                 className="half input-field" 
                                 placeholder="Birthday"
+                                onChange={(e) => setBirthday(e.target.value)}
                                 required 
                             />
                         </div>
@@ -70,6 +152,7 @@ const Apply = () => {
                                 id="gender" 
                                 name="gender" 
                                 className="half input-field" 
+                                onChange={(e) => setGender(e.target.value)}
                                 required 
                             >
                                 <option value="" disabled selected>Select Gender</option>
@@ -88,8 +171,9 @@ const Apply = () => {
                                 id="phoneNumber" 
                                 name="phoneNumber" 
                                 className="half input-field" 
-                                placeholder="(123) 456-7890"
-                                pattern="([0-9]{3}) [0-9]{3}-[0-9]{4}"
+                                placeholder="1234567890"
+                                pattern="[0-9]{10}"
+                                onChange={(e) => setPhoneNumber(e.target.value)}
                                 required 
                             />
                         </div>
@@ -102,6 +186,8 @@ const Apply = () => {
                                 name="studentID" 
                                 className="half input-field" 
                                 placeholder="12345678"
+                                pattern="[0-9]{8}"
+                                onChange={(e) => setStudentID(e.target.value)}
                                 required 
                             />
                         </div>
@@ -116,13 +202,14 @@ const Apply = () => {
                                 name="gradeStatus" 
                                 className="half input-field" 
                                 placeholder="Select Grade"
+                                onChange={(e) => setGradeStatus(e.target.value)}
                                 required 
                             >
                                 <option value="" disabled selected>Select Grade Status</option>
                                 <option value="freshman">Freshman</option>
                                 <option value="sophomore">Sophomore</option>
                                 <option value="junior">Junior</option>
-                                <option value="freshman">Freshman</option>
+                                <option value="senior">Senior</option>
                                 <option value="grad">Grad Student</option>
                             </select>
                         </div>
@@ -135,6 +222,7 @@ const Apply = () => {
                                 name="creditHours" 
                                 className="half input-field" 
                                 placeholder="0"
+                                onChange={(e) => setCreditHours(e.target.value)}
                                 required 
                             />
                         </div>
@@ -149,6 +237,7 @@ const Apply = () => {
                                 name="cumulativeGPA" 
                                 className="half input-field" 
                                 placeholder="4.0"
+                                onChange={(e) => setCumulativeGPA(e.target.value)}
                                 required 
                             />
                         </div>
@@ -161,6 +250,7 @@ const Apply = () => {
                                 name="currentGPA" 
                                 className="half input-field" 
                                 placeholder="4.0"
+                                onChange={(e) => setCurrentGPA(e.target.value)}
                                 required 
                             />
                         </div>
@@ -179,6 +269,7 @@ const Apply = () => {
                             name="username" 
                             className="input-field" 
                             placeholder="Enter your username"
+                            onChange={(e) => setUsername(e.target.value)}
                             required 
                         />
                     </div>
@@ -190,6 +281,7 @@ const Apply = () => {
                             name="email" 
                             className="input-field" 
                             placeholder="Enter your email"
+                            onChange={(e) => setEmail(e.target.value)}
                             required 
                         />
                     </div>
@@ -201,6 +293,7 @@ const Apply = () => {
                             name="password" 
                             className="input-field" 
                             placeholder="Enter your password"
+                            onChange={(e) => setPassword(e.target.value)}
                             required 
                         />
                     </div>
@@ -212,20 +305,19 @@ const Apply = () => {
                             name="confirm-password" 
                             className="input-field" 
                             placeholder="Re-enter your password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             required 
                         />
                     </div>
                 </div>
-            </div>
-
-            <Button
-                type="submit"
-                label="Submit Application"
-                onClick={() => navigate('/home/student')}
-                variant="primary"
-                style={{ fontWeight: 800, fontSize: "24px" }}
-                class="button-container"
-            />
+                <Button
+                    type="submit"
+                    label="Submit Application"
+                    variant="primary"
+                    style={{ fontWeight: 800, fontSize: "24px" }}
+                    class="button-container"
+                />
+            </form>
         </div>
     );
 };
